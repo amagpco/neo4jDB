@@ -39,14 +39,12 @@ This Python script demonstrates creating nodes and relationships in a Neo4j data
 
 from neo4j import GraphDatabase
 
-
-URI = "bolt://localhost:7677"
-AUTH = ("neo4j", "password")
-
-from neo4j import GraphDatabase
+URL = "bolt://0.0.0.0:7687"
+USERNAME = "neo4j"
+PASSWORD = "abc@123!zxy"
 
 try:
-    driver = GraphDatabase.driver("bolt://0.0.0.0:7687", auth=("neo4j", "abc@123!zxy"))  # Replace credentials with yours
+    driver = GraphDatabase.driver(URL, auth=(USERNAME, PASSWORD))  # Replace credentials with yours
     print("Neo4j Driver installed successfully!")
     # Function to execute a Cypher query
     def execute_query(query, parameters=None):
@@ -57,11 +55,14 @@ try:
             # Access results using `data()` method
             return result.data()  # Return a list of dictionaries containing the results
         
-    # Person data for the actor
-    country_data = {"name": "IR"}
-    person_data = {"name": "Abbass", "family": "asadi"}
+    # Movie Country data for the actor
+    country_data = {"name": "USA"}
+
+    # Director data for the actor
+    person_data = {"name": "name", "family": "family"}
+    
     # Movie data with a new field "release_year"
-    movie_data = {"name": "Amir Mahdi", "title": "The Evil", "genre": "Data Science", "release_year": 2024}
+    movie_data = {"title": "The Evil", "genre": "Data Science", "release_year": 2024}
 
     # Create movie query with dynamic property setting
     create_movie_query = f"""
